@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ColorBox from "./ColorBox";
 import { Navbar } from "./Navbar";
+import ColorBox from "./ColorBox";
 
 import "./Palette.css";
 
