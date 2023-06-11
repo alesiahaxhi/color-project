@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Slider from "rc-slider";
 import InputLabel from "@mui/material/InputLabel";
@@ -24,7 +25,7 @@ export const Navbar = (props) => {
   return (
     <header className="Navbar">
       <div className="logo">
-        <a href="#">reactcolorpicker</a>
+        <Link to="/">reactcolorpicker</Link>
       </div>
       <div className="slider-container">
         <span>Level: {level}</span>

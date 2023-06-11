@@ -1,8 +1,9 @@
 import { Routes, Route, useParams } from "react-router-dom";
 
-import { generatePalette } from "./colorHelpers";
 import Palette from "./Palette";
 import seedColors from "./seedColors";
+import PaletteList from "./PaletteList";
+import { generatePalette } from "./colorHelpers";
 
 function App() {
   const findPalette = (id) => {
@@ -24,7 +25,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<h1>Welcome Home</h1>} />
+        <Route exact path="/" element={<PaletteList palettes={seedColors} />} />
         <Route exact path="/palette/:id" element={<PaletteWrapper />} />
       </Routes>
     </div>
