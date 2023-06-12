@@ -1,4 +1,4 @@
-import { styled } from "@mui/system";
+import { color, styled } from "@mui/system";
 
 const Root = styled("div")(
   ({ theme }) => `
@@ -8,6 +8,7 @@ const Root = styled("div")(
     padding: 0.5rem;
     position: relative;
     overflow: hidden;
+    height: 190px;
     &:hover: {
         curosr: pointer;
     }
@@ -16,7 +17,11 @@ const Root = styled("div")(
 
 const Colors = styled("div")(
   ({ theme }) => `
-    background-color: gray;
+    background-color: #dae1e4;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 150px;
+    width: 100%;
   `
 );
 
@@ -39,11 +44,25 @@ const Emoji = styled("span")(
   `
 );
 
+const MiniColor = styled("div")(
+  ({ theme }) => `
+  height: 25%;
+  width: 20%;
+  display: inline-block;
+  margin: 0 auto;
+  position: relative;
+  margin-bottom: -3.5px;
+  `
+);
+
 const MiniPalette = (props) => {
-  const { paletteName, emoji } = props;
+  const { paletteName, emoji, colors } = props;
+  const miniColorBoxes = colors.map((color) => (
+    <MiniColor style={{ backgroundColor: color.color }} key={color.name} />
+  ));
   return (
     <Root>
-      <Colors />
+      <Colors>{miniColorBoxes}</Colors>
       <Title>
         {paletteName} <Emoji>{emoji}</Emoji>
       </Title>
