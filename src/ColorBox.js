@@ -2,6 +2,7 @@ import { useState } from "react";
 import copy from "copy-to-clipboard";
 
 import "./ColorBox.css";
+import { Link } from "react-router-dom";
 
 const ColorBox = (props) => {
   const [copied, setCopied] = useState(false);
@@ -31,7 +32,9 @@ const ColorBox = (props) => {
           COPY
         </button>
       </div>
-      <span className="see-more">MORE</span>
+      <Link to="/" onClick={(e) => e.stopPropagation()}>
+        <span className="see-more">MORE</span>
+      </Link>
     </div>
   );
 };

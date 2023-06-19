@@ -3,7 +3,7 @@ import MiniPalette from "./MiniPalette";
 
 const Root = styled("div")(
   ({ theme }) => `
-    background-color: blue;
+    background-color: #09215a;
     height: 100vh;
     display: flex;
     align-items: flex-start;

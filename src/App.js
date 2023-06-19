@@ -27,6 +27,11 @@ function App() {
       <Routes>
         <Route exact path="/" element={<PaletteList palettes={seedColors} />} />
         <Route exact path="/palette/:id" element={<PaletteWrapper />} />
+        <Route
+          exact
+          path="/palette/:paletteId/:colorId"
+          element={<h1>single color</h1>}
+        />
       </Routes>
     </div>
   );
