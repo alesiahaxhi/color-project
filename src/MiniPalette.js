@@ -1,4 +1,5 @@
-import { color, styled } from "@mui/system";
+import { useNavigate } from "react-router-dom";
+import { styled } from "@mui/system";
 
 const Root = styled("div")(
   ({ theme }) => `
@@ -9,8 +10,8 @@ const Root = styled("div")(
     position: relative;
     overflow: hidden;
     height: 190px;
-    &:hover: {
-        curosr: pointer;
+    &:hover {
+        cursor: pointer;
     }
   `
 );
@@ -56,12 +57,19 @@ const MiniColor = styled("div")(
 );
 
 const MiniPalette = (props) => {
-  const { paletteName, emoji, colors } = props;
+  const { colors, id, paletteName, emoji } = props;
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate(`/palette/${id}`);
+  };
+
   const miniColorBoxes = colors.map((color) => (
     <MiniColor style={{ backgroundColor: color.color }} key={color.name} />
   ));
   return (
-    <Root>
+    <Root onClick={handleClick}>
       <Colors>{miniColorBoxes}</Colors>
       <Title>
         {paletteName} <Emoji>{emoji}</Emoji>

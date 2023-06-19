@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import MiniPalette from "./MiniPalete";
+import MiniPalette from "./MiniPalette";
 
 const Root = styled("div")(
   ({ theme }) => `
