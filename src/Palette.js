@@ -16,10 +16,16 @@ const Palette = (props) => {
     setLevel(newLevel);
   };
 
-  const { colors, paletteName, emoji } = props.palette;
+  const { colors, paletteName, emoji, id } = props.palette;
 
   const colorBoxes = colors[level].map((color) => (
-    <ColorBox key={color.name} background={color[format]} name={color.name} />
+    <ColorBox
+      key={color.name}
+      background={color[format]}
+      name={color.name}
+      id={color.id}
+      paletteId={id}
+    />
   ));
 
   return (
