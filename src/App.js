@@ -23,6 +23,26 @@ function App() {
     return <Palette palette={palette} />;
   };
 
+  const SingleColorWrapper = () => {
+    const { paletteId, colorId } = useParams();
+    console.log("paletteId:", paletteId);
+    console.log("colorId:", colorId);
+
+    const palette = generatePalette(findPalette(paletteId));
+    let color = null;
+
+    for (let key in palette.colors) {
+      color = palette.colors[key].find((c) => c.id === colorId);
+      if (color) {
+        break;
+      }
+    }
+
+    return (
+      <SingleColorPalette palette={palette} color={color} colorId={colorId} />
+    );
+  };
+
   return (
     <div className="App">
       <Routes>
@@ -31,7 +51,7 @@ function App() {
         <Route
           exact
           path="/palette/:paletteId/:colorId"
-          element={<SingleColorPalette />}
+          element={<SingleColorWrapper />}
         />
       </Routes>
     </div>
