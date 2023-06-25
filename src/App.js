@@ -45,6 +45,7 @@ function App() {
         colorId={colorId}
         paletteName={palette.paletteName}
         emoji={palette.emoji}
+        id={paletteId}
       />
     );
   };
