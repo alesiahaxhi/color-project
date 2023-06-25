@@ -15,7 +15,7 @@ import "./Navbar.css";
 
 export const Navbar = (props) => {
   const [open, setOpen] = useState(false);
-  const { level, changeLevel, format, changeFormat } = props;
+  const { level, changeLevel, format, changeFormat, showingAllColors } = props;
 
   const handleChangeFormat = (e) => {
     changeFormat(e.target.value);
@@ -27,18 +27,20 @@ export const Navbar = (props) => {
       <div className="logo">
         <Link to="/">reactcolorpicker</Link>
       </div>
-      <div className="slider-container">
-        <span>Level: {level}</span>
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            onChange={changeLevel}
-          />
+      {showingAllColors && (
+        <div className="slider-container">
+          <span>Level: {level}</span>
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              onChange={changeLevel}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="select-container">
         <FormControl variant="standard">
           <InputLabel id="format-label">Color Format</InputLabel>
@@ -59,7 +61,7 @@ export const Navbar = (props) => {
         open={open}
         autoHideDuration={3000}
         message={
-          <span id="message-id">Format hanged to {format.toUpperCase()}</span>
+          <span id="message-id">Format changed to {format.toUpperCase()}</span>
         }
         ContentProps={{
           "aria-describedby": "message-id",

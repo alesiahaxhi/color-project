@@ -35,6 +35,7 @@ const Palette = (props) => {
         changeLevel={changeLevel}
         changeFormat={changeFormat}
         format={format}
+        showingAllColors
       />
       <div className="Palette-colors">{colorBoxes}</div>
       <div className="Palette-footer">

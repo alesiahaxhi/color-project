@@ -39,7 +39,13 @@ function App() {
     }
 
     return (
-      <SingleColorPalette palette={palette} color={color} colorId={colorId} />
+      <SingleColorPalette
+        palette={palette}
+        color={color}
+        colorId={colorId}
+        paletteName={palette.paletteName}
+        emoji={palette.emoji}
+      />
     );
   };
 
