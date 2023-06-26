@@ -58,6 +58,14 @@
   text-transform: uppercase;
 }
 
+.light-text {
+  color: white;
+}
+
+.ColorBox .dark-text {
+  color: rgb(69, 69, 69);
+}
+
 .see-more {
   background-color: rgba(255, 255, 255, 0.3);
   position: absolute;
