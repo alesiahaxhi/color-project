@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navbar } from "./Navbar";
 import ColorBox from "./ColorBox";
 
-import "./Palette.css";
+import "./styles/Palette.css";
 
 const Palette = (props) => {
   const [level, setLevel] = useState(500);

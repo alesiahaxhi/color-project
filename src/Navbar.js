@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 import "rc-slider/assets/index.css";
-import "./Navbar.css";
+import "./styles/Navbar.css";
 
 export const Navbar = (props) => {
   const [open, setOpen] = useState(false);
