@@ -5,6 +5,7 @@ import seedColors from "./seedColors";
 import PaletteList from "./PaletteList";
 import { generatePalette } from "./colorHelpers";
 import SingleColorPalette from "./SingleColorPalette";
+import NewPaletteForm from "./NewPaletteForm";
 
 function App() {
   const findPalette = (id) => {
@@ -60,6 +61,7 @@ function App() {
           path="/palette/:paletteId/:colorId"
           element={<SingleColorWrapper />}
         />
+        <Route exact path="/palette/new" element={<NewPaletteForm />} />
       </Routes>
     </div>
   );

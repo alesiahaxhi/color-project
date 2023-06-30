@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { styled } from "@mui/system";
 import MiniPalette from "./MiniPalette";
 
@@ -27,6 +28,11 @@ const Nav = styled("nav")(
     width: 100%;
     justify-content: space-between;
     color: white;
+    align-items: center;
+    & a {
+      color: white;
+      text-decoration: none;
+    }
   `
 );
 
@@ -47,6 +53,7 @@ const PaletteList = (props) => {
       <Container>
         <Nav>
           <h1>React Colors</h1>
+          <Link to="/palette/new">Create Palette</Link>
         </Nav>
         <Palettes>
           {palettes.map((palette) => (
