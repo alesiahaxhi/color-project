@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { styled, useTheme } from "@mui/material/styles";
 
@@ -18,6 +19,7 @@ import TextField from "@mui/material/TextField";
 
 import { ChromePicker } from "react-color";
 import DragColorBox from "./DragColorBox";
+import { PropaneSharp } from "@mui/icons-material";
 
 const drawerWidth = 450;
 
@@ -67,7 +69,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const NewPaletteForm = () => {
+const NewPaletteForm = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [color, setColor] = useState("#000000");
@@ -75,6 +77,8 @@ const NewPaletteForm = () => {
   const [colorName, setColorName] = useState("");
   const [error, setError] = useState(false);
   const [touched, setTouched] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -143,10 +147,21 @@ const NewPaletteForm = () => {
     createColor();
   };
 
+  const savePalette = () => {
+    let newName = "piuuuuu ueeeee";
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLowerCase().replace(/ /, "-"),
+      colors: colors,
+    };
+    props.savePalette(newPalette);
+    navigate("/");
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" color="default" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -158,8 +173,11 @@ const NewPaletteForm = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            Create Palette
           </Typography>
+          <Button variant="contained" onClick={savePalette}>
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
