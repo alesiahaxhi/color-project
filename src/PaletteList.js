@@ -5,10 +5,15 @@ import MiniPalette from "./MiniPalette";
 const Root = styled("div")(
   ({ theme }) => `
     background-color: #09215a;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow-y: scroll;
   `
 );
 

@@ -71,7 +71,9 @@ function App() {
         <Route
           exact
           path="/palette/new"
-          element={<NewPaletteForm savePalette={savePalette} />}
+          element={
+            <NewPaletteForm palettes={palettes} savePalette={savePalette} />
+          }
         />
       </Routes>
     </div>

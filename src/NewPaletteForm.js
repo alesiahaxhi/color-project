@@ -75,6 +75,8 @@ const NewPaletteForm = (props) => {
   const [color, setColor] = useState("#000000");
   const [colors, setColors] = useState([]);
   const [colorName, setColorName] = useState("");
+  const [newPaletteName, setNewPaletteName] = useState("");
+  const [paletteNameError, setPaletteNameError] = useState(false);
   const [error, setError] = useState(false);
   const [touched, setTouched] = useState(false);
 
@@ -88,12 +90,23 @@ const NewPaletteForm = (props) => {
     setOpen(false);
   };
 
-  const handleChange = (newColor) => {
-    setColor(newColor.hex);
+  const handleChange = (e) => {
+    if (e.hex) {
+      setColor(e.hex);
+    } else {
+      setNewPaletteName(e.target.value);
+      setPaletteNameError(false); // Reset the palette name error
+    }
   };
 
   const handleBlur = () => {
     setTouched(true);
+
+    if (newPaletteName.trim() === "") {
+      setPaletteNameError(true);
+    } else {
+      setPaletteNameError(false);
+    }
   };
 
   const createColor = () => {
@@ -112,8 +125,9 @@ const NewPaletteForm = (props) => {
     const isDuplicateColor = colors.some(
       (color) => color.color.toLowerCase() === newColor.toLowerCase()
     );
+    const isEmptyName = name.trim() === "";
 
-    return isDuplicateName || isDuplicateColor;
+    return isDuplicateName || isDuplicateColor || isEmptyName;
   };
 
   useEffect(() => {
@@ -122,36 +136,63 @@ const NewPaletteForm = (props) => {
       isDuplicateName: isInvalid && colors.some((c) => c.name === colorName),
       isDuplicateColor: isInvalid && colors.some((c) => c.color === color),
       isEmpty: touched && colorName.trim() === "",
+      paletteNameError,
     });
-  }, [colorName, color, colors, touched]);
+  }, [colorName, color, colors, touched, paletteNameError]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (colorName === "") {
-      setError({
-        isDuplicateName: false,
-        isDuplicateColor: false,
-        isEmpty: true,
-      });
-      return;
-    }
-    const isInvalid = validateColor(colorName, color);
-    if (isInvalid) {
-      setError({
-        isDuplicateName: false,
+    console.log("Entering handleSubmit");
+    // Validate color
+    const isInvalidColor = validateColor(colorName, color);
+    if (isInvalidColor) {
+      console.log("Invalid color:", colorName, color);
+      setError((prevError) => ({
+        ...prevError,
         isDuplicateColor: true,
         isEmpty: false,
-      });
+      }));
       return;
     }
+
+    // Reset color-related errors if color is valid
+    setError((prevError) => ({
+      ...prevError,
+      isDuplicateColor: false,
+      isEmpty: false,
+    }));
+
+    // Add the color
     createColor();
   };
 
-  const savePalette = () => {
-    let newName = "piuuuuu ueeeee";
+  const isDuplicatePalette = props.palettes.some(
+    (palette) =>
+      palette.paletteName.toLowerCase() === newPaletteName.toLowerCase()
+  );
+
+  const savePalette = (e) => {
+    e.preventDefault();
+    console.log("Entering savePalette");
+    if (newPaletteName.trim() === "") {
+      console.log("Empty palette name:", newPaletteName);
+      setPaletteNameError(true);
+      return;
+    }
+
+    if (isDuplicatePalette) {
+      console.log("Duplicate palette name:", newPaletteName);
+      setPaletteNameError(true);
+      return;
+    }
+
+    setPaletteNameError(false);
+
+    // Save the palette
+    let newName = newPaletteName;
     const newPalette = {
       paletteName: newName,
-      id: newName.toLowerCase().replace(/ /, "-"),
+      id: newName.toLowerCase().replace(/ /g, "-"),
       colors: colors,
     };
     props.savePalette(newPalette);
@@ -175,9 +216,30 @@ const NewPaletteForm = (props) => {
           <Typography variant="h6" noWrap component="div">
             Create Palette
           </Typography>
-          <Button variant="contained" onClick={savePalette}>
-            Save Palette
-          </Button>
+          <form onSubmit={savePalette}>
+            <TextField
+              required
+              name="newPaletteName"
+              value={newPaletteName}
+              id="standard-basic"
+              label="Palette Name"
+              variant="standard"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={paletteNameError} // Replace 'isDuplicate' with 'paletteNameError'
+              helperText={
+                paletteNameError
+                  ? paletteNameError && "Palette name cannot be empty"
+                  : isDuplicatePalette
+                  ? "Palette name must be unique"
+                  : ""
+              }
+            />
+
+            <Button variant="contained" type="submit">
+              Save Palette
+            </Button>
+          </form>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -214,6 +276,7 @@ const NewPaletteForm = (props) => {
         <form onSubmit={handleSubmit}>
           <TextField
             required
+            name="colorName"
             value={colorName}
             id="standard-basic"
             label="Color Name"
