@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { styled, useTheme } from "@mui/material/styles";
-
-import DragColorList from "./DragColorList";
+import { ChromePicker } from "react-color";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -19,8 +18,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TextField from "@mui/material/TextField";
 
-import { ChromePicker } from "react-color";
-import { PropaneSharp } from "@mui/icons-material";
+import DragColorList from "./DragColorList";
 
 const drawerWidth = 450;
 
@@ -74,7 +72,7 @@ const NewPaletteForm = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [color, setColor] = useState("#000000");
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState(props.palettes[0].colors);
   const [colorName, setColorName] = useState("");
   const [newPaletteName, setNewPaletteName] = useState("");
   const [paletteNameError, setPaletteNameError] = useState(false);
@@ -83,12 +81,26 @@ const NewPaletteForm = (props) => {
 
   const navigate = useNavigate();
 
+  const maxColors = 20;
+  const paletteFull = colors.length >= maxColors;
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const clearColors = () => {
+    setColors([]);
+  };
+
+  const addRandColor = () => {
+    const allColors = props.palettes.map((p) => p.colors).flat();
+    let rand = Math.floor(Math.random() * allColors.length);
+    const randColor = allColors[rand];
+    setColors([...colors, randColor]);
   };
 
   const handleChange = (e) => {
@@ -274,10 +286,16 @@ const NewPaletteForm = (props) => {
         <Divider />
         <Typography variant="h4">Design Your Palette</Typography>
         <div>
-          <Button variant="contained" color="error">
+          <Button variant="contained" color="error" onClick={clearColors}>
             Clear Palette
           </Button>
-          <Button variant="contained">Random Color</Button>
+          <Button
+            variant="contained"
+            onClick={addRandColor}
+            disabled={paletteFull}
+          >
+            {paletteFull ? "PALETTE FULL" : "RANDOM COLOR"}
+          </Button>
         </div>
         <ChromePicker color={color} onChange={handleChange} />
         <form onSubmit={handleSubmit}>
@@ -307,9 +325,12 @@ const NewPaletteForm = (props) => {
           <Button
             variant="contained"
             type="submit"
-            style={{ backgroundColor: color }}
+            style={{
+              backgroundColor: paletteFull ? "#e4e8e9" : color,
+            }}
+            disabled={paletteFull}
           >
-            ADD COLOR
+            {paletteFull ? "PALETTE FULL" : "ADD COLOR"}
           </Button>
         </form>
       </Drawer>
