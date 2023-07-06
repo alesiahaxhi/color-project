@@ -130,6 +130,12 @@ const NewPaletteForm = (props) => {
     return isDuplicateName || isDuplicateColor || isEmptyName;
   };
 
+  const removeColor = (colorName) => {
+    setColors((prevColors) =>
+      prevColors.filter((color) => color.name !== colorName)
+    );
+  };
+
   useEffect(() => {
     const isInvalid = validateColor(colorName, color);
     setError({
@@ -310,7 +316,12 @@ const NewPaletteForm = (props) => {
         <DrawerHeader />
 
         {colors.map((color, index) => (
-          <DragColorBox key={index} color={color.color} name={color.name} />
+          <DragColorBox
+            key={color.name}
+            color={color.color}
+            name={color.name}
+            handleClick={() => removeColor(color.name)}
+          />
         ))}
       </Main>
     </Box>
