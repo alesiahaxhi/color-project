@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import { styled, useTheme } from "@mui/material/styles";
 
+import DragColorList from "./DragColorList";
+
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -18,7 +20,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TextField from "@mui/material/TextField";
 
 import { ChromePicker } from "react-color";
-import DragColorBox from "./DragColorBox";
 import { PropaneSharp } from "@mui/icons-material";
 
 const drawerWidth = 450;
@@ -314,15 +315,13 @@ const NewPaletteForm = (props) => {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-
-        {colors.map((color, index) => (
-          <DragColorBox
-            key={color.name}
-            color={color.color}
-            name={color.name}
-            handleClick={() => removeColor(color.name)}
+        {colors && Array.isArray(colors) && (
+          <DragColorList
+            colors={colors}
+            setColors={setColors}
+            removeColor={removeColor}
           />
-        ))}
+        )}
       </Main>
     </Box>
   );

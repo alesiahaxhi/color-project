@@ -1,7 +1,6 @@
 import { styled } from "@mui/system";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import Delete from "@mui/icons-material/Delete";
 
 const Root = styled("div")(
   ({ theme }) => `
