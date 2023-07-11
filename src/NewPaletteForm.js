@@ -5,20 +5,18 @@ import { styled, useTheme } from "@mui/material/styles";
 import { ChromePicker } from "react-color";
 
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
 import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TextField from "@mui/material/TextField";
 
 import DragColorList from "./DragColorList";
+import PaletteFormNav from "./PaletteFormNav";
 
 const drawerWidth = 450;
 
@@ -220,47 +218,16 @@ const NewPaletteForm = (props) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" color="default" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Create Palette
-          </Typography>
-          <form onSubmit={savePalette}>
-            <TextField
-              required
-              name="newPaletteName"
-              value={newPaletteName}
-              id="standard-basic"
-              label="Palette Name"
-              variant="standard"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={paletteNameError} // Replace 'isDuplicate' with 'paletteNameError'
-              helperText={
-                paletteNameError
-                  ? paletteNameError && "Palette name cannot be empty"
-                  : isDuplicatePalette
-                  ? "Palette name must be unique"
-                  : ""
-              }
-            />
-
-            <Button variant="contained" type="submit">
-              Save Palette
-            </Button>
-          </form>
-        </Toolbar>
-      </AppBar>
+      <PaletteFormNav
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+        newPaletteName={newPaletteName}
+        handleChange={handleChange}
+        handleBlur={handleBlur}
+        savePalette={savePalette}
+        paletteNameError={paletteNameError}
+        isDuplicatePalette={isDuplicatePalette}
+      />
       <Drawer
         sx={{
           width: drawerWidth,
@@ -286,14 +253,10 @@ const NewPaletteForm = (props) => {
         <Divider />
         <Typography variant="h4">Design Your Palette</Typography>
         <div>
-          <Button variant="contained" color="error" onClick={clearColors}>
+          <Button variant="text" color="error" onClick={clearColors}>
             Clear Palette
           </Button>
-          <Button
-            variant="contained"
-            onClick={addRandColor}
-            disabled={paletteFull}
-          >
+          <Button variant="text" onClick={addRandColor} disabled={paletteFull}>
             {paletteFull ? "PALETTE FULL" : "RANDOM COLOR"}
           </Button>
         </div>
