@@ -6,7 +6,6 @@ import { styled, useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import MuiAppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -39,22 +38,23 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   })
 );
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+const DrawerContainer = styled("div")(
+  ({ theme }) => `
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `
+);
+
+const Buttons = styled("div")(
+  ({ theme }) => `
+    display: flex;
+    width: 100%;
+  `
+);
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -234,6 +234,8 @@ const NewPaletteForm = (props) => {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
+            display: "flex",
+            alignItems: "center",
           },
         }}
         variant="persistent"
@@ -250,26 +252,40 @@ const NewPaletteForm = (props) => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <Typography variant="h4">Design Your Palette</Typography>
-        <div>
-          <Button variant="text" color="error" onClick={clearColors}>
-            Clear Palette
-          </Button>
-          <Button variant="text" onClick={addRandColor} disabled={paletteFull}>
-            {paletteFull ? "PALETTE FULL" : "RANDOM COLOR"}
-          </Button>
-        </div>
-        <ColorPickerForm
-          color={color}
-          colorName={colorName}
-          setColorName={setColorName}
-          handleChange={handleChange}
-          handleBlur={handleBlur}
-          handleSubmit={handleSubmit}
-          error={error}
-          touched={touched}
-          paletteFull={paletteFull}
-        />
+        <DrawerContainer>
+          <Typography variant="h4" gutterBottom>
+            Design Your Palette
+          </Typography>
+          <Buttons>
+            <Button
+              sx={{ width: "50%" }}
+              variant="text"
+              color="error"
+              onClick={clearColors}
+            >
+              Clear Palette
+            </Button>
+            <Button
+              sx={{ width: "50%" }}
+              variant="text"
+              onClick={addRandColor}
+              disabled={paletteFull}
+            >
+              {paletteFull ? "PALETTE FULL" : "RANDOM COLOR"}
+            </Button>
+          </Buttons>
+          <ColorPickerForm
+            color={color}
+            colorName={colorName}
+            setColorName={setColorName}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            handleSubmit={handleSubmit}
+            error={error}
+            touched={touched}
+            paletteFull={paletteFull}
+          />
+        </DrawerContainer>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

@@ -2,8 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { ChromePicker } from "react-color";
+
+import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+
+const Picker = styled("div")(
+  ({ theme }) => `
+      margin-top: 2rem;
+      display: block;
+    `
+);
 
 const ColorPickerForm = ({
   color,
@@ -18,15 +27,23 @@ const ColorPickerForm = ({
 }) => {
   return (
     <div>
-      <ChromePicker color={color} onChange={handleChange} />
+      <Picker>
+        {" "}
+        <ChromePicker width="100%" color={color} onChange={handleChange} />
+      </Picker>
       <form onSubmit={handleSubmit}>
         <TextField
           required
+          sx={{
+            width: "100%",
+            marginTop: "40px",
+            // marginBottom: "10px",
+          }}
           name="colorName"
           value={colorName}
           id="standard-basic"
           label="Color Name"
-          variant="standard"
+          variant="filled"
           onChange={(e) => setColorName(e.target.value)}
           onBlur={handleBlur}
           error={
@@ -46,7 +63,12 @@ const ColorPickerForm = ({
         <Button
           variant="contained"
           type="submit"
-          style={{
+          sx={{
+            width: "100%",
+            padding: "1rem",
+            marginTop: "1rem",
+            fontSize: "2rem",
+            border: "none",
             backgroundColor: paletteFull ? "#e4e8e9" : color,
           }}
           disabled={paletteFull}

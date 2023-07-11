@@ -12,11 +12,20 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import CssBaseline from "@mui/material/CssBaseline";
 
+const Root = styled("div")(
+  ({ theme }) => `
+    display: flex;
+  `
+);
+
 const StyledAppBar = styled(MuiAppBar)(({ theme, open }) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  flexDirection: "row",
+  justifyContent: "space-between",
+  height: "64px",
   ...(open && {
     marginLeft: 240, // Adjust this value based on your drawer width
     width: `calc(100% - 450px)`, // Adjust this value based on your drawer width
@@ -38,7 +47,7 @@ const PaletteFormNav = ({
   isDuplicatePalette,
 }) => {
   return (
-    <div>
+    <Root>
       <CssBaseline />
       <StyledAppBar position="fixed" color="default" open={open}>
         <Toolbar>
@@ -54,36 +63,36 @@ const PaletteFormNav = ({
           <Typography variant="h6" noWrap component="div">
             Create Palette
           </Typography>
-          <form onSubmit={savePalette}>
-            <TextField
-              required
-              name="newPaletteName"
-              value={newPaletteName}
-              id="standard-basic"
-              label="Palette Name"
-              variant="standard"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={paletteNameError}
-              helperText={
-                paletteNameError
-                  ? "Palette name cannot be empty"
-                  : isDuplicatePalette
-                  ? "Palette name must be unique"
-                  : ""
-              }
-            />
-
-            <Button variant="text" color="success" type="submit">
-              Save Palette
-            </Button>
-            <Link to="/">
-              <Button variant="text">Go Back</Button>
-            </Link>
-          </form>
         </Toolbar>
+        <form onSubmit={savePalette}>
+          <TextField
+            required
+            name="newPaletteName"
+            value={newPaletteName}
+            id="standard-basic"
+            label="Palette Name"
+            variant="standard"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={paletteNameError}
+            helperText={
+              paletteNameError
+                ? "Palette name cannot be empty"
+                : isDuplicatePalette
+                ? "Palette name must be unique"
+                : ""
+            }
+          />
+
+          <Button variant="text" color="success" type="submit">
+            Save Palette
+          </Button>
+        </form>
+        <Link to="/">
+          <Button variant="text">Go Back</Button>
+        </Link>
       </StyledAppBar>
-    </div>
+    </Root>
   );
 };
 
