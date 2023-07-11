@@ -18,7 +18,7 @@ const Root = styled("div")(
 
 const Colors = styled("div")(
   ({ theme }) => `
-    background-color: #dae1e4;
+    background-color: #8ea8b8;
     border-radius: 5px;
     overflow: hidden;
     height: 150px;

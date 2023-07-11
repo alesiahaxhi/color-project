@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { styled, useTheme } from "@mui/material/styles";
-import { ChromePicker } from "react-color";
 
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
@@ -13,10 +12,10 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import TextField from "@mui/material/TextField";
 
 import DragColorList from "./DragColorList";
 import PaletteFormNav from "./PaletteFormNav";
+import ColorPickerForm from "./ColorPickerForm";
 
 const drawerWidth = 450;
 
@@ -260,42 +259,17 @@ const NewPaletteForm = (props) => {
             {paletteFull ? "PALETTE FULL" : "RANDOM COLOR"}
           </Button>
         </div>
-        <ChromePicker color={color} onChange={handleChange} />
-        <form onSubmit={handleSubmit}>
-          <TextField
-            required
-            name="colorName"
-            value={colorName}
-            id="standard-basic"
-            label="Color Name"
-            variant="standard"
-            onChange={(e) => setColorName(e.target.value)}
-            onBlur={handleBlur}
-            error={
-              error &&
-              (error.isEmpty || error.isDuplicateName || error.isDuplicateColor)
-            }
-            helperText={
-              error.isEmpty && touched && colorName.trim() === ""
-                ? "Color name cannot be empty"
-                : error.isDuplicateName
-                ? "Oops! That name's taken!"
-                : error.isDuplicateColor
-                ? "Color already in use!"
-                : ""
-            }
-          />
-          <Button
-            variant="contained"
-            type="submit"
-            style={{
-              backgroundColor: paletteFull ? "#e4e8e9" : color,
-            }}
-            disabled={paletteFull}
-          >
-            {paletteFull ? "PALETTE FULL" : "ADD COLOR"}
-          </Button>
-        </form>
+        <ColorPickerForm
+          color={color}
+          colorName={colorName}
+          setColorName={setColorName}
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          handleSubmit={handleSubmit}
+          error={error}
+          touched={touched}
+          paletteFull={paletteFull}
+        />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
