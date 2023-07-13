@@ -67,6 +67,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const NewPaletteForm = (props) => {
   const theme = useTheme();
+
   const [open, setOpen] = React.useState(false);
   const [color, setColor] = useState("#000000");
   const [colors, setColors] = useState(props.palettes[0].colors);
@@ -187,8 +188,7 @@ const NewPaletteForm = (props) => {
       palette.paletteName.toLowerCase() === newPaletteName.toLowerCase()
   );
 
-  const savePalette = (e) => {
-    e.preventDefault();
+  const savePalette = (newPaletteName, emoji) => {
     console.log("Entering savePalette");
     if (newPaletteName.trim() === "") {
       console.log("Empty palette name:", newPaletteName);
@@ -204,12 +204,20 @@ const NewPaletteForm = (props) => {
 
     setPaletteNameError(false);
 
+    console.log(`Saving palette: ${newPaletteName} - ${emoji}`);
+    // Display the saved palette name and emoji
+    console.log(
+      `Palette Name: ${newPaletteName}`,
+      `Palette Emoji: ${emoji}`,
+      `Palette Name with Emoji: ${emoji} ${newPaletteName}`
+    );
+
     // Save the palette
-    let newName = newPaletteName;
     const newPalette = {
-      paletteName: newName,
-      id: newName.toLowerCase().replace(/ /g, "-"),
+      paletteName: newPaletteName,
+      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
       colors: colors,
+      emoji: emoji, // Include the emoji in the saved palette
     };
     props.savePalette(newPalette);
     navigate("/");
