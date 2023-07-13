@@ -11,6 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import CssBaseline from "@mui/material/CssBaseline";
+import PaletteMetaForm from "./PaletteMetaForm";
 
 const Root = styled("div")(
   ({ theme }) => `
@@ -64,30 +65,14 @@ const PaletteFormNav = ({
             Create Palette
           </Typography>
         </Toolbar>
-        <form onSubmit={savePalette}>
-          <TextField
-            required
-            name="newPaletteName"
-            value={newPaletteName}
-            id="standard-basic"
-            label="Palette Name"
-            variant="standard"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={paletteNameError}
-            helperText={
-              paletteNameError
-                ? "Palette name cannot be empty"
-                : isDuplicatePalette
-                ? "Palette name must be unique"
-                : ""
-            }
-          />
-
-          <Button variant="text" color="success" type="submit">
-            Save Palette
-          </Button>
-        </form>
+        <PaletteMetaForm
+          newPaletteName={newPaletteName}
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          savePalette={savePalette}
+          paletteNameError={paletteNameError}
+          isDuplicatePalette={isDuplicatePalette}
+        />
         <Link to="/">
           <Button variant="text">Go Back</Button>
         </Link>
