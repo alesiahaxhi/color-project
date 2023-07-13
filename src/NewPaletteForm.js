@@ -81,11 +81,11 @@ const NewPaletteForm = (props) => {
   const maxColors = 20;
   const paletteFull = colors.length >= maxColors;
 
-  const handleDrawerOpen = () => {
+  const handleOpen = () => {
     setOpen(true);
   };
 
-  const handleDrawerClose = () => {
+  const handleClose = () => {
     setOpen(false);
   };
 
@@ -219,7 +219,7 @@ const NewPaletteForm = (props) => {
     <Box sx={{ display: "flex" }}>
       <PaletteFormNav
         open={open}
-        handleDrawerOpen={handleDrawerOpen}
+        handleOpen={handleOpen}
         newPaletteName={newPaletteName}
         handleChange={handleChange}
         handleBlur={handleBlur}
@@ -243,7 +243,7 @@ const NewPaletteForm = (props) => {
         open={open}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -9,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import CssBaseline from "@mui/material/CssBaseline";
 import PaletteMetaForm from "./PaletteMetaForm";
 
@@ -26,6 +24,7 @@ const StyledAppBar = styled(MuiAppBar)(({ theme, open }) => ({
   }),
   flexDirection: "row",
   justifyContent: "space-between",
+  alignItems: "center",
   height: "64px",
   ...(open && {
     marginLeft: 240, // Adjust this value based on your drawer width
@@ -39,7 +38,7 @@ const StyledAppBar = styled(MuiAppBar)(({ theme, open }) => ({
 
 const PaletteFormNav = ({
   open,
-  handleDrawerOpen,
+  handleOpen,
   newPaletteName,
   handleChange,
   handleBlur,
@@ -55,7 +54,7 @@ const PaletteFormNav = ({
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={handleOpen}
             edge="start"
             sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
