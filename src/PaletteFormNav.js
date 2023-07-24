@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { styled } from "@mui/material/styles";
-import MuiAppBar from "@mui/material/AppBar";
+import { Root, StyledAppBar } from "./styles/PaletteFormNavStyles";
+
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -10,31 +10,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import PaletteMetaForm from "./PaletteMetaForm";
-
-const Root = styled("div")(
-  ({ theme }) => `
-    display: flex;
-  `
-);
-
-const StyledAppBar = styled(MuiAppBar)(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  flexDirection: "row",
-  justifyContent: "space-between",
-  alignItems: "center",
-  height: "64px",
-  ...(open && {
-    marginLeft: 240, // Adjust this value based on your drawer width
-    width: `calc(100% - 450px)`, // Adjust this value based on your drawer width
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 const PaletteFormNav = ({
   open,
