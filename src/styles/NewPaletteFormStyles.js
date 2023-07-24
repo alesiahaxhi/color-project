@@ -5,7 +5,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     height: "calc(100vh - 64px)",
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: 0,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -40,6 +40,7 @@ const Buttons = styled("div")(
 );
 
 const DrawerHeader = styled("div")(({ theme }) => ({
+  width: "100%",
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(0, 1),
