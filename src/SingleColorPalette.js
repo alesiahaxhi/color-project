@@ -7,7 +7,7 @@ import ColorBox from "./ColorBox";
 function SingleColorPalette(props) {
   const [format, setFormat] = useState("hex");
 
-  const { palette, colorId, paletteName, emoji, id } = props;
+  const { palette, colorId, paletteName, emoji } = props;
 
   const shades = gatherShades(palette, colorId);
   console.log("palette:", palette);

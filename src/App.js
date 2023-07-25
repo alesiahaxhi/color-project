@@ -9,7 +9,9 @@ import SingleColorPalette from "./SingleColorPalette";
 import NewPaletteForm from "./NewPaletteForm";
 
 function App() {
-  const [palettes, setPalettes] = useState(seedColors);
+  const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
+
+  const [palettes, setPalettes] = useState(savedPalettes || seedColors);
 
   const findPalette = (id) => {
     const palette = palettes.find((palette) => palette.id === id);
@@ -20,6 +22,11 @@ function App() {
 
   const savePalette = (newPalette) => {
     setPalettes([...palettes, newPalette]);
+    // Save the updated palettes to local storage immediately
+    window.localStorage.setItem(
+      "palettes",
+      JSON.stringify([...palettes, newPalette])
+    );
   };
 
   const PaletteWrapper = () => {

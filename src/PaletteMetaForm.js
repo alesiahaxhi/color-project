@@ -91,6 +91,7 @@ export default function PaletteMetaForm({
               )}
               <Button
                 type="submit"
+                color="success"
                 disabled={!selectedEmoji || newPaletteName.trim() === ""}
               >
                 Save Palette
