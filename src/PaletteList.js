@@ -4,7 +4,7 @@ import MiniPalette from "./MiniPalette";
 import { Root, Container, Nav, Palettes } from "./styles/PaletteListStyles";
 
 const PaletteList = (props) => {
-  const { palettes } = props;
+  const { palettes, deletePalette } = props;
   return (
     <Root>
       <Container>
@@ -14,7 +14,12 @@ const PaletteList = (props) => {
         </Nav>
         <Palettes>
           {palettes.map((palette) => (
-            <MiniPalette {...palette} />
+            <MiniPalette
+              {...palette}
+              handleDelete={deletePalette}
+              key={palette.id}
+              id={palette.id}
+            />
           ))}
         </Palettes>
       </Container>

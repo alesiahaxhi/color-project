@@ -9,8 +9,11 @@ const Root = styled("div")(
     position: relative;
     overflow: hidden;
     height: 190px;
-    &:hover {
+    &:hover  {
         cursor: pointer;
+    }
+    &:hover svg {
+        opacity: 1;
     }
   `
 );

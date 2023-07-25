@@ -29,6 +29,12 @@ function App() {
     );
   };
 
+  const deletePalette = (id) => {
+    const updatedPalettes = palettes.filter((palette) => palette.id !== id);
+    setPalettes(updatedPalettes);
+    window.localStorage.setItem("palettes", JSON.stringify(updatedPalettes));
+  };
+
   const PaletteWrapper = () => {
     const { id } = useParams();
     console.log("id:", id);
@@ -68,7 +74,13 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<PaletteList palettes={palettes} />} />
+        <Route
+          exact
+          path="/"
+          element={
+            <PaletteList palettes={palettes} deletePalette={deletePalette} />
+          }
+        />
         <Route exact path="/palette/:id" element={<PaletteWrapper />} />
         <Route
           exact
