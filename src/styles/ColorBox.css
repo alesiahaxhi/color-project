@@ -15,7 +15,7 @@
   /* Media query for 'md' screen size */
   @media (max-width: 992px) {
     width: 50%;
-    height: 20%;
+    height: 30%;
   }
   /* Media query for 'sm' screen size */
   @media (max-width: 768px) {
@@ -32,6 +32,11 @@
 .SingleColorPalette .ColorBox {
   height: 50%;
 
+  /* Media query for 'xl' screen size */
+  @media (max-width: 1400px) {
+    width: 50%;
+    height: 30%;
+  }
   /* Media query for 'md' screen size */
   @media (max-width: 992px) {
     width: 50%;
