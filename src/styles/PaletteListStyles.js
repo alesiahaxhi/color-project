@@ -7,11 +7,9 @@ const Root = styled("div")(
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    overflow-y: scroll;
   `
 );
 
@@ -22,6 +20,27 @@ const Container = styled("div")(
     align-items: flex-start;
     flex-direction: column;
     flex-wrap: wrap;
+
+    /* Media query for 'xl' screen size */
+    @media (max-width: 1400px) {
+      width: 70%;
+    }
+    /* Media query for 'lg' screen size */
+    @media (max-width: 1200px) {
+      width: 80%;
+    }
+    /* Media query for 'md' screen size */
+    @media (max-width: 992px) {
+      width: 85%;
+    }
+    /* Media query for 'sm' screen size */
+    @media (max-width: 768px) {
+      width: 90%;
+    }
+    /* Media query for 'xs' screen size */
+    @media (max-width: 576px) {
+      width: 100%;
+    }
   `
 );
 
@@ -46,6 +65,18 @@ const Palettes = styled("div")(
     display: grid;
     grid-template-columns: repeat(3, 30%);
     grid-gap: 5%;
+
+    /* Media query for 'md' screen size */
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 50%); // Display one palette per row
+      justify-content: center; // Center the items horizontally
+    }
+    /* Media query for 'xs' screen size */
+    @media (max-width: 576px) {
+      grid-template-columns: repeat(1, 60%); // Display one palette per row
+      justify-content: center; // Center the items horizontally
+      grid-gap: 3rem;
+    }
   `
 );
 
