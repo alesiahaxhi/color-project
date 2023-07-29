@@ -4,6 +4,10 @@ import MuiAppBar from "@mui/material/AppBar";
 const Root = styled("div")(
   ({ theme }) => `
       display: flex;
+      /* Media query for 'xs' screen size */
+      @media (max-width: 576px) {
+        height: 55px;
+      }
     `
 );
 
@@ -16,9 +20,12 @@ const StyledAppBar = styled(MuiAppBar)(({ theme, open }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   height: "64px",
+  "@media (max-width: 576px)": {
+    height: "55px", // Adjust the height for small screens (xs screen size)
+  },
   ...(open && {
-    marginLeft: 240, // Adjust this value based on your drawer width
-    width: `calc(100% - 450px)`, // Adjust this value based on your drawer width
+    marginLeft: 291, // Adjust this value based on your drawer width
+    width: `calc(100% - 501px)`, // Adjust this value based on your drawer width
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,

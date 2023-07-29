@@ -32,7 +32,7 @@
 .SingleColorPalette .ColorBox {
   height: 50%;
 
-  /* Media query for 'xl' screen size */
+  /* Media query for 'lg' screen size */
   @media (max-width: 1400px) {
     width: 50%;
     height: 30%;

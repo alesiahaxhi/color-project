@@ -27,7 +27,12 @@ function SingleColorPalette(props) {
   };
 
   const colorBoxes = shades.map((color) => (
-    <ColorBox key={color.name} name={color.name} background={color[format]} />
+    <ColorBox
+      key={color.name}
+      name={color.name}
+      background={color[format]}
+      showLink={false}
+    />
   ));
 
   return (

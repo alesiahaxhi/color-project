@@ -14,6 +14,26 @@ const Root = styled("div")(
     transition: all 0.3s ease-in-out;
     transform: scale(1.5);
   }
+  /* Media query for 'xl' screen size */
+  @media (max-width: 1400px) {
+    width: 25%;
+    height: 20%;
+  }
+  /* Media query for 'md' screen size */
+  @media (max-width: 992px) {
+    width: 50%;
+    height: 30%;
+  }
+  /* Media query for 'sm' screen size */
+  @media (max-width: 768px) {
+    width: 50%;
+    height: 10%;
+  }
+  /* Media query for 'xs' screen size */
+  @media (max-width: 576px) {
+    width: 100%;
+    height: 5%;
+  }
   `
 );
 
