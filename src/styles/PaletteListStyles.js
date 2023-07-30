@@ -1,8 +1,13 @@
 import { styled } from "@mui/system";
+import svgBg from "./confetti-doodles.svg";
+
+// Apply background color and image to html and body elements
+document.documentElement.style.backgroundColor = "#0E105F";
+document.documentElement.style.backgroundImage = `url(${svgBg})`;
+document.documentElement.style.backgroundPosition = "center";
 
 const Root = styled("div")(
   ({ theme }) => `
-    background-color: #09215a;
     min-height: 100vh;
     display: flex;
     align-items: flex-start;
@@ -10,6 +15,15 @@ const Root = styled("div")(
     top: 0;
     left: 0;
     width: 100%;
+
+    h1 { 
+      font-size: 2rem;
+    }
+
+    /* Media query for 'xs' screen size */
+    @media (max-width: 576px) {
+     text-align: center;
+    }
   `
 );
 
@@ -54,6 +68,16 @@ const Nav = styled("nav")(
     & a {
       color: white;
       text-decoration: none;
+    }
+
+    /* Media query for 'xs' screen size */
+    @media (max-width: 576px) {
+      flex-direction: row;
+      align-items: center;
+      margin-left: 80px;
+      & a {
+        margin-right: 160px;
+      }
     }
   `
 );
