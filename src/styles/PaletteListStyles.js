@@ -1,6 +1,26 @@
 import { styled } from "@mui/system";
 import svgBg from "./confetti-doodles.svg";
 
+const animationStyles = `
+  .fade-enter {
+    opacity: 0;
+  }
+
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms;
+  }
+
+  .fade-exit {
+    opacity: 1;
+  }
+
+  .fade-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-out;
+  }
+`;
+
 const Root = styled("div")(({ theme }) => ({
   minHeight: "100vh",
   display: "flex",
@@ -108,4 +128,4 @@ const Palettes = styled("div")(
   `
 );
 
-export { Root, Container, Nav, Palettes };
+export { Root, Container, Nav, Palettes, animationStyles };
