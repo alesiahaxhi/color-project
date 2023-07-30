@@ -1,31 +1,35 @@
 import { styled } from "@mui/system";
 import svgBg from "./confetti-doodles.svg";
 
-// Apply background color and image to html and body elements
-document.documentElement.style.backgroundColor = "#0E105F";
-document.documentElement.style.backgroundImage = `url(${svgBg})`;
-document.documentElement.style.backgroundPosition = "center";
+const Root = styled("div")(({ theme }) => ({
+  minHeight: "100vh",
+  display: "flex",
+  alignItems: "flex-start",
+  justifyContent: "center",
+  top: 0,
+  left: 0,
+  width: "100%",
 
-const Root = styled("div")(
-  ({ theme }) => `
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    width: 100%;
+  h1: {
+    fontSize: "2rem",
+  },
 
-    h1 { 
-      font-size: 2rem;
-    }
-
-    /* Media query for 'xs' screen size */
-    @media (max-width: 576px) {
-     text-align: center;
-    }
-  `
-);
+  // Apply background color and image to html and body elements
+  [`@media (max-width: 6000px)`]: {
+    "&::before": {
+      content: '""',
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "#0E105F",
+      backgroundImage: `url(${svgBg})`,
+      backgroundPosition: "center",
+      zIndex: -1,
+    },
+  },
+}));
 
 const Container = styled("div")(
   ({ theme }) => `

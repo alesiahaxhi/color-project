@@ -6,6 +6,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     height: "calc(100vh - 64px)",
     flexGrow: 1,
     padding: 0,
+    backgroundColor: "white", // Set the background color directly here
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
