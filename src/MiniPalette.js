@@ -11,7 +11,7 @@ import {
 } from "./styles/MiniPaletteStyles";
 
 const MiniPalette = (props) => {
-  const { colors, id, paletteName, emoji, handleDelete } = props;
+  const { colors, id, paletteName, emoji, openDialog } = props;
   const navigate = useNavigate();
 
   const handleClick = (e) => {
@@ -25,7 +25,7 @@ const MiniPalette = (props) => {
 
   const deletePalette = (e) => {
     e.stopPropagation();
-    handleDelete(id);
+    openDialog(id);
   };
   return (
     <Root onClick={handleClick}>

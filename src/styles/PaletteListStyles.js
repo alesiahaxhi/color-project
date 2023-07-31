@@ -8,7 +8,7 @@ const animationStyles = `
 
   .fade-enter-active {
     opacity: 1;
-    transition: opacity 300ms;
+    transition: opacity 200ms;
   }
 
   .fade-exit {
@@ -17,7 +17,7 @@ const animationStyles = `
 
   .fade-exit-active {
     opacity: 0;
-    transition: opacity 500ms ease-out;
+    transition: opacity 300ms ease-out;
   }
 `;
 
