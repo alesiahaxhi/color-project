@@ -50,6 +50,10 @@ const BoxContent = styled("div")(
   text-transform: uppercase;
   display: flex;
   justify-content: space-between;
+  & svg {
+    padding-right: 20px;
+    padding-bottom: 10px;
+  }
   `
 );
 

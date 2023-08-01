@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useParams, useLocation } from "react-router-dom";
 
 import Palette from "./Palette";
 import seedColors from "./seedColors";
@@ -7,6 +7,11 @@ import PaletteList from "./PaletteList";
 import { generatePalette } from "./colorHelpers";
 import SingleColorPalette from "./SingleColorPalette";
 import NewPaletteForm from "./NewPaletteForm";
+
+import "./styles/App.css";
+
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import Page from "./Page";
 
 function App() {
   const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
@@ -71,30 +76,58 @@ function App() {
     );
   };
 
+  const location = useLocation();
+
   return (
     <div className="App">
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={
-            <PaletteList palettes={palettes} deletePalette={deletePalette} />
-          }
-        />
-        <Route exact path="/palette/:id" element={<PaletteWrapper />} />
-        <Route
-          exact
-          path="/palette/:paletteId/:colorId"
-          element={<SingleColorWrapper />}
-        />
-        <Route
-          exact
-          path="/palette/new"
-          element={
-            <NewPaletteForm palettes={palettes} savePalette={savePalette} />
-          }
-        />
-      </Routes>
+      <TransitionGroup component={null} className="App" location={location}>
+        <CSSTransition key={location.key} classNames="page" timeout={300}>
+          <Routes location={location}>
+            <Route
+              exact
+              path="/"
+              element={
+                <Page>
+                  <PaletteList
+                    palettes={palettes}
+                    deletePalette={deletePalette}
+                  />
+                </Page>
+              }
+            />
+            <Route
+              exact
+              path="/palette/:id"
+              element={
+                <Page>
+                  <PaletteWrapper />
+                </Page>
+              }
+            />
+            <Route
+              exact
+              path="/palette/:paletteId/:colorId"
+              element={
+                <Page>
+                  <SingleColorWrapper />
+                </Page>
+              }
+            />
+            <Route
+              exact
+              path="/palette/new"
+              element={
+                <Page>
+                  <NewPaletteForm
+                    palettes={palettes}
+                    savePalette={savePalette}
+                  />
+                </Page>
+              }
+            />
+          </Routes>
+        </CSSTransition>
+      </TransitionGroup>
     </div>
   );
 }

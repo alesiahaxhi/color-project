@@ -4,10 +4,6 @@ import MuiAppBar from "@mui/material/AppBar";
 const Root = styled("div")(
   ({ theme }) => `
       display: flex;
-      /* Media query for 'xs' screen size */
-      @media (max-width: 576px) {
-        height: 55px;
-      }
     `
 );
 

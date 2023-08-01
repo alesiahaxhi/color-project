@@ -23,7 +23,6 @@ const PaletteFormNav = ({
 }) => {
   return (
     <Root>
-      <CssBaseline />
       <StyledAppBar position="fixed" color="default" open={open}>
         <Toolbar>
           <IconButton

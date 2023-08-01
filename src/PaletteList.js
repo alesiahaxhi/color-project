@@ -60,7 +60,7 @@ const PaletteList = (props) => {
         <Palettes>
           <TransitionGroup component={null}>
             {palettes.map((palette) => (
-              <CSSTransition key={palette.id} classNames="fade" timeout={200}>
+              <CSSTransition key={palette.id} classNames="fade" timeout={300}>
                 <MiniPalette
                   {...palette}
                   openDialog={handleOpen}

@@ -43,6 +43,9 @@ export default function PaletteMetaForm({
     e.preventDefault();
     if (newPaletteName.trim() !== "" && selectedEmoji) {
       savePalette(newPaletteName, selectedEmoji); // Pass the selectedEmoji value
+      setOpen(false); // Close the dialog after submission
+      setSelectedEmoji(null); // Reset selectedEmoji
+      handleChange({ target: { name: "newPaletteName", value: "" } }); // Reset newPaletteName
     }
   };
 
