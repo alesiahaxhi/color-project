@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Slider from "rc-slider";
-import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Snackbar from "@mui/material/Snackbar";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import InputLabel from "@mui/material/InputLabel";
+import IconButton from "@mui/material/IconButton";
+import FormControl from "@mui/material/FormControl";
 
 import "rc-slider/assets/index.css";
 import "./styles/Navbar.css";

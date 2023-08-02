@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { Root, StyledAppBar } from "./styles/PaletteFormNavStyles";
+import PaletteMetaForm from "./PaletteMetaForm";
 
+import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
+import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import PaletteMetaForm from "./PaletteMetaForm";
+
+import { Root, StyledAppBar } from "./styles/PaletteFormNavStyles";
 
 const PaletteFormNav = ({
   open,

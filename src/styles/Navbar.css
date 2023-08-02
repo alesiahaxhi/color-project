@@ -14,15 +14,7 @@
   height: 100%;
   display: flex;
   align-items: center;
-  /* Media query for 'xl' screen size */
-  @media (max-width: 1400px) {
-  }
-  /* Media query for 'md' screen size */
-  @media (max-width: 992px) {
-  }
-  /* Media query for 'sm' screen size */
-  @media (max-width: 768px) {
-  }
+
   /* Media query for 'xs' screen size */
   @media (max-width: 576px) {
     display: none;
@@ -38,12 +30,10 @@
   width: 340px;
   margin: 0 10px;
   display: inline-block;
-  /* Media query for 'xl' screen size */
-  @media (max-width: 1400px) {
-  }
+
   /* Media query for 'md' screen size */
   @media (max-width: 992px) {
-    width: 220px;
+    width: 300px;
   }
   /* Media query for 'sm' screen size */
   @media (max-width: 768px) {
