@@ -29,7 +29,7 @@ const ColorBox = (props) => {
       </div>
       <div className="copy-container">
         <div className="box-content">
-          <span className={isDark && "light-text"}>{name}</span>
+          <span className={isDark ? "light-text" : "dark-text"}>{name}</span>
         </div>
         <button
           className={`copy-button ${isLight && "dark-text"}`}
