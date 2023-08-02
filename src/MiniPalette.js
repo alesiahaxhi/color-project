@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -17,6 +18,7 @@ const MiniPalette = (props) => {
   const handleClick = (e) => {
     e.preventDefault();
     navigate(`/palette/${id}`);
+    console.log(paletteName);
   };
 
   const miniColorBoxes = colors.map((color) => (
@@ -52,4 +54,4 @@ const MiniPalette = (props) => {
     </Root>
   );
 };
-export default MiniPalette;
+export default memo(MiniPalette);
