@@ -1,41 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import {
-  drawerWidth,
-  Main,
-  DrawerContainer,
-  Buttons,
-  DrawerHeader,
-} from "./styles/NewPaletteFormStyles";
-
 import { useTheme } from "@mui/material/styles";
-
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
+import seedColors from "./seedColors";
 import DragColorList from "./DragColorList";
 import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 
+import {
+  Main,
+  Buttons,
+  DrawerHeader,
+  drawerWidth,
+  DrawerContainer,
+} from "./styles/NewPaletteFormStyles";
+
 const NewPaletteForm = (props) => {
   const theme = useTheme();
-
-  const [open, setOpen] = React.useState(false);
-  const [color, setColor] = useState("#000000");
-  const [colors, setColors] = useState(props.palettes[0].colors);
+  const [open, setOpen] = useState(false);
+  const [color, setColor] = useState("");
+  const [colors, setColors] = useState(seedColors[0].colors);
   const [colorName, setColorName] = useState("");
   const [newPaletteName, setNewPaletteName] = useState("");
   const [paletteNameError, setPaletteNameError] = useState(false);
-  const [error, setError] = useState(false);
-  const [touched, setTouched] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   const navigate = useNavigate();
 
@@ -71,15 +65,7 @@ const NewPaletteForm = (props) => {
   };
 
   const handleBlur = () => {
-    if (!touched) {
-      setTouched(true);
-    }
-    setSubmitted(false);
-    if (newPaletteName.trim() === "") {
-      setPaletteNameError(true);
-    } else {
-      setPaletteNameError(false);
-    }
+    setPaletteNameError(newPaletteName.trim() === "");
   };
 
   const createColor = () => {
@@ -109,41 +95,12 @@ const NewPaletteForm = (props) => {
     );
   };
 
-  useEffect(() => {
-    if (submitted && touched) {
-      const isInvalid = validateColor(colorName, color);
-      setError({
-        isDuplicateName: isInvalid && colors.some((c) => c.name === colorName),
-        isDuplicateColor: isInvalid && colors.some((c) => c.color === color),
-        isEmpty: touched && colorName.trim() === "",
-        paletteNameError,
-      });
-    }
-  }, [colorName, color, colors, touched, paletteNameError, submitted]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Entering handleSubmit");
-    // Validate color
     const isInvalidColor = validateColor(colorName, color);
     if (isInvalidColor) {
-      console.log("Invalid color:", colorName, color);
-      setError((prevError) => ({
-        ...prevError,
-        isDuplicateColor: true,
-        isEmpty: false,
-      }));
       return;
     }
-
-    // Reset color-related errors if color is valid
-    setError((prevError) => ({
-      ...prevError,
-      isDuplicateColor: false,
-      isEmpty: false,
-    }));
-
-    // Add the color
     createColor();
   };
 
@@ -153,28 +110,17 @@ const NewPaletteForm = (props) => {
   );
 
   const savePalette = (newPaletteName, emoji) => {
-    console.log("Entering savePalette");
     if (newPaletteName.trim() === "") {
-      console.log("Empty palette name:", newPaletteName);
       setPaletteNameError(true);
       return;
     }
 
     if (isDuplicatePalette) {
-      console.log("Duplicate palette name:", newPaletteName);
       setPaletteNameError(true);
       return;
     }
 
     setPaletteNameError(false);
-
-    console.log(`Saving palette: ${newPaletteName} - ${emoji}`);
-    // Display the saved palette name and emoji
-    console.log(
-      `Palette Name: ${newPaletteName}`,
-      `Palette Emoji: ${emoji}`,
-      `Palette Name with Emoji: ${emoji} ${newPaletteName}`
-    );
 
     // Save the palette
     const newPalette = {
@@ -248,13 +194,12 @@ const NewPaletteForm = (props) => {
           </Buttons>
           <ColorPickerForm
             color={color}
+            colors={colors}
             colorName={colorName}
             setColorName={setColorName}
             handleChange={handleChange}
             handleBlur={handleBlur}
             handleSubmit={handleSubmit}
-            error={error}
-            touched={touched}
             paletteFull={paletteFull}
           />
         </DrawerContainer>

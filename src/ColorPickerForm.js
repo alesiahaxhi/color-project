@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-
 import { ChromePicker } from "react-color";
-
 import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const Picker = styled("div")(
   ({ theme }) => `
-      margin-top: 2rem;
-      display: block;
-    `
+  margin-top: 2rem;
+  display: block;
+`
 );
 
 const ColorPickerForm = ({
@@ -21,14 +19,42 @@ const ColorPickerForm = ({
   handleChange,
   handleBlur,
   handleSubmit,
-  error,
-  touched,
   paletteFull,
+  colors, // We need the colors array to validate color name and color duplication
 }) => {
+  const [error, setError] = useState({
+    isDuplicateName: false,
+    isDuplicateColor: false,
+    isEmpty: false,
+  });
+  const [touched, setTouched] = useState(false);
+
+  useEffect(() => {
+    if (touched) {
+      const isInvalid = validateColor(colorName, color);
+      setError({
+        isDuplicateName: isInvalid && colors.some((c) => c.name === colorName),
+        isDuplicateColor: isInvalid && colors.some((c) => c.color === color),
+        isEmpty: touched && colorName.trim() === "",
+      });
+    }
+  }, [colorName, color, colors, touched]);
+
+  const validateColor = (name, newColor) => {
+    const isDuplicateName = colors.some(
+      (color) => color.name.toLowerCase() === name.toLowerCase()
+    );
+    const isDuplicateColor = colors.some(
+      (color) => color.color.toLowerCase() === newColor.toLowerCase()
+    );
+    const isEmptyName = name.trim() === "";
+
+    return isDuplicateName || isDuplicateColor || isEmptyName;
+  };
+
   return (
     <div>
       <Picker>
-        {" "}
         <ChromePicker width="100%" color={color} onChange={handleChange} />
       </Picker>
       <form onSubmit={handleSubmit}>
@@ -37,7 +63,6 @@ const ColorPickerForm = ({
           sx={{
             width: "100%",
             marginTop: "40px",
-            // marginBottom: "10px",
           }}
           name="colorName"
           value={colorName}
@@ -45,10 +70,9 @@ const ColorPickerForm = ({
           label="Color Name"
           variant="filled"
           onChange={(e) => setColorName(e.target.value)}
-          onBlur={handleBlur}
+          onBlur={() => setTouched(true)}
           error={
-            error &&
-            (error.isEmpty || error.isDuplicateName || error.isDuplicateColor)
+            error.isEmpty || error.isDuplicateName || error.isDuplicateColor
           }
           helperText={
             error.isEmpty && touched && colorName.trim() === ""
@@ -86,9 +110,8 @@ ColorPickerForm.propTypes = {
   colorName: PropTypes.string.isRequired,
   setColorName: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,
-  error: PropTypes.object.isRequired,
-  touched: PropTypes.bool.isRequired,
   paletteFull: PropTypes.bool.isRequired,
+  colors: PropTypes.array.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };
 
