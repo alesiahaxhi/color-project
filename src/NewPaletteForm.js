@@ -35,6 +35,7 @@ const NewPaletteForm = (props) => {
   const [paletteNameError, setPaletteNameError] = useState(false);
   const [error, setError] = useState(false);
   const [touched, setTouched] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const navigate = useNavigate();
 
@@ -70,8 +71,10 @@ const NewPaletteForm = (props) => {
   };
 
   const handleBlur = () => {
-    setTouched(true);
-
+    if (!touched) {
+      setTouched(true);
+    }
+    setSubmitted(false);
     if (newPaletteName.trim() === "") {
       setPaletteNameError(true);
     } else {
@@ -107,14 +110,16 @@ const NewPaletteForm = (props) => {
   };
 
   useEffect(() => {
-    const isInvalid = validateColor(colorName, color);
-    setError({
-      isDuplicateName: isInvalid && colors.some((c) => c.name === colorName),
-      isDuplicateColor: isInvalid && colors.some((c) => c.color === color),
-      isEmpty: touched && colorName.trim() === "",
-      paletteNameError,
-    });
-  }, [colorName, color, colors, touched, paletteNameError]);
+    if (submitted && touched) {
+      const isInvalid = validateColor(colorName, color);
+      setError({
+        isDuplicateName: isInvalid && colors.some((c) => c.name === colorName),
+        isDuplicateColor: isInvalid && colors.some((c) => c.color === color),
+        isEmpty: touched && colorName.trim() === "",
+        paletteNameError,
+      });
+    }
+  }, [colorName, color, colors, touched, paletteNameError, submitted]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
