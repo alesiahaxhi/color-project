@@ -1,14 +1,16 @@
 import { useState } from "react";
+import Picker from "@emoji-mart/react";
+
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
+import TextField from "@mui/material/TextField";
+import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 
 import data from "@emoji-mart/data";
-import Picker from "@emoji-mart/react";
 
 export default function PaletteMetaForm({
   newPaletteName,
@@ -39,13 +41,16 @@ export default function PaletteMetaForm({
     handlePickerToggle();
   };
 
+  const isNewPaletteNameValid =
+    newPaletteName.trim() !== "" && !isDuplicatePalette;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (newPaletteName.trim() !== "" && selectedEmoji) {
-      savePalette(newPaletteName, selectedEmoji); // Pass the selectedEmoji value
-      setOpen(false); // Close the dialog after submission
-      setSelectedEmoji(null); // Reset selectedEmoji
-      handleChange({ target: { name: "newPaletteName", value: "" } }); // Reset newPaletteName
+    if (isNewPaletteNameValid && selectedEmoji) {
+      savePalette(newPaletteName, selectedEmoji);
+      setOpen(false);
+      setSelectedEmoji(null);
+      handleChange({ target: { name: "newPaletteName", value: "" } });
     }
   };
 
