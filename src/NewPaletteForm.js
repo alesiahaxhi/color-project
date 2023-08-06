@@ -25,7 +25,7 @@ import {
 const NewPaletteForm = (props) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("#000");
   const [colors, setColors] = useState(seedColors[0].colors);
   const [colorName, setColorName] = useState("");
   const [newPaletteName, setNewPaletteName] = useState("");
@@ -198,7 +198,6 @@ const NewPaletteForm = (props) => {
             colorName={colorName}
             setColorName={setColorName}
             handleChange={handleChange}
-            handleBlur={handleBlur}
             handleSubmit={handleSubmit}
             paletteFull={paletteFull}
           />

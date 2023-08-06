@@ -17,7 +17,6 @@ const ColorPickerForm = ({
   colorName,
   setColorName,
   handleChange,
-  handleBlur,
   handleSubmit,
   paletteFull,
   colors, // We need the colors array to validate color name and color duplication
@@ -29,13 +28,20 @@ const ColorPickerForm = ({
   });
   const [touched, setTouched] = useState(false);
 
+  const handleBlur = () => {
+    setTouched(true);
+    setError((prevError) => ({
+      ...prevError,
+      isEmpty: colorName.trim() === "",
+    }));
+  };
+
   useEffect(() => {
     if (touched) {
       const isInvalid = validateColor(colorName, color);
       setError({
         isDuplicateName: isInvalid && colors.some((c) => c.name === colorName),
         isDuplicateColor: isInvalid && colors.some((c) => c.color === color),
-        isEmpty: touched && colorName.trim() === "",
       });
     }
   }, [colorName, color, colors, touched]);
@@ -69,8 +75,9 @@ const ColorPickerForm = ({
           id="standard-basic"
           label="Color Name"
           variant="filled"
+          disabled={paletteFull}
           onChange={(e) => setColorName(e.target.value)}
-          onBlur={() => setTouched(true)}
+          onBlur={handleBlur}
           error={
             error.isEmpty || error.isDuplicateName || error.isDuplicateColor
           }
