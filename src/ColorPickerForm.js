@@ -37,13 +37,25 @@ const ColorPickerForm = ({
   };
 
   useEffect(() => {
+    let validationTimeout;
+
     if (touched) {
-      const isInvalid = validateColor(colorName, color);
-      setError({
-        isDuplicateName: isInvalid && colors.some((c) => c.name === colorName),
-        isDuplicateColor: isInvalid && colors.some((c) => c.color === color),
-      });
+      // Clear any previous validation timeout
+      clearTimeout(validationTimeout);
+
+      // Run the validation after a short delay (e.g., 500ms) to avoid immediate validation
+      validationTimeout = setTimeout(() => {
+        const isInvalid = validateColor(colorName, color);
+        setError({
+          isDuplicateName:
+            isInvalid && colors.some((c) => c.name === colorName),
+          isDuplicateColor: isInvalid && colors.some((c) => c.color === color),
+        });
+      }, 2000); // You can adjust the delay time (in milliseconds) as needed
     }
+
+    // Clean up the timeout when the component unmounts or when colorName, color, or colors changes
+    return () => clearTimeout(validationTimeout);
   }, [colorName, color, colors, touched]);
 
   const validateColor = (name, newColor) => {
