@@ -12,6 +12,7 @@ import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelpers";
 
 import "./styles/App.css";
+import NotFound from "./NotFound";
 
 function App() {
   const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
@@ -122,6 +123,14 @@ function App() {
                     palettes={palettes}
                     savePalette={savePalette}
                   />
+                </Page>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Page>
+                  <NotFound />
                 </Page>
               }
             />
